@@ -5,5 +5,5 @@
 #version: 1.0
 #root: no
 #category: system-tools
-#distro: all
+#distro: debbased, rpmbased
 hostname -I
