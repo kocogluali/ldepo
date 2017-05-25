@@ -13,7 +13,7 @@ read sifre
 sudo x11vnc -storepasswd $sifre /etc/x11vnc.pass
 
 printf "[Unit]\n
-Description="x11vnc"\n
+Description='x11vnc'\n
 Requires=display-manager.service\n
 After=display-manager.service\n
 [Service]\n
