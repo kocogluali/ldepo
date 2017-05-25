@@ -1,0 +1,29 @@
+#!/bin/bash
+#name: Create x11vnc
+#author: Generic
+#description: Simple VNC server
+#version: 1.0
+#root: yes
+#category: program, remote desktop
+#distro: debian
+
+sudo apt-get install x11vnc
+echo "Şifre:"
+read sifre
+sudo x11vnc -storepasswd $sifre /etc/x11vnc.pass
+
+printf "[Unit]\n
+Description="x11vnc"\n
+Requires=display-manager.service\n
+After=display-manager.service\n
+[Service]\n
+ExecStart=/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth guess -rfbauth /etc/x11vnc.pass\n
+ExecStop=/usr/bin/killall x11vnc\n
+Restart=on-failure\n
+Restart-sec=2\n
+[Install]\n
+WantedBy=multi-user.target\n" >> /etc/systemd/system/x11vnc.service
+
+sudo systemctl daemon-reload
+sudo systemctl start x11vnc
+sudo systemctl enable x11vnc
